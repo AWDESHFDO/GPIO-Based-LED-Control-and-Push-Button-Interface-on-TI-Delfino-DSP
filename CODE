@@ -1,0 +1,67 @@
+EALLOW;            
+ 
+CtrlRegs.GPBGMUX1.bit.GPIO41 = 0; 
+GpioCtrlRegs.GPBMUX1.bit.GPIO41 = 0;        
+GpioCtrlRegs.GPBDIR.bit.GPIO41 = 1;      
+GpioCtrlRegs.GPBGMUX1.bit.GPIO42 = 0; 
+GpioCtrlRegs.GPBMUX1.bit.GPIO42 = 0;        
+GpioCtrlRegs.GPBDIR.bit.GPIO42 = 1;        
+GpioCtrlRegs.GPBGMUX1.bit.GPIO33 = 0; 
+GpioCtrlRegs.GPBMUX1.bit.GPIO33 = 0;       
+GpioCtrlRegs.GPBDIR.bit.GPIO33 = 0;       
+GpioCtrlRegs.GPBINV.bit.GPIO33 = 1;      
+GpioCtrlRegs.GPAGMUX2.bit.GPIO17 = 0; 
+GpioCtrlRegs.GPAMUX2.bit.GPIO17 = 0;           
+GpioCtrlRegs.GPADIR.bit.GPIO17 = 0;               
+GpioCtrlRegs.GPAINV.bit.GPIO17 = 1;        
+GpioCtrlRegs.GPAGMUX2.bit.GPIO19 = 0; 
+GpioCtrlRegs.GPAMUX2.bit.GPIO19 = 0;             
+GpioCtrlRegs.GPADIR.bit.GPIO19 = 0;          
+//Decides that the GPIO41 works as GPIO 
+//GPIO41 acts as output 
+//Decides that the GPIO42 works as GPIO 
+//GPIO42 acts as output 
+//Decides that the GPIO33 works as GPIO 
+//GPIO33 acts as input 
+//Inverts GPIO33 logic 
+//Decides that the GPIO17 works as GPIO 
+//GPIO17 acts as input 
+//Inverts GPIO17 logic 
+//Decides that the GPIO19 works as GPIO 
+//GPIO19 acts as input 
+GpioCtrlRegs.GPAINV.bit.GPIO19 = 1;         
+//Inverts GPIO19 logic 
+EDIS; 
+GpioDataRegs.GPBDAT.bit.GPIO41 = 0;          
+GpioDataRegs.GPBDAT.bit.GPIO42 = 0;              
+// 
+{ 
+for(;;)       
+//Sets value of GPIO41 to 0 
+//Sets value of GPIO42 to 0 
+// infinite loop     
+if(GpioDataRegs.GPBDAT.bit.GPIO33==1)   //If Push Button 1 is pressed, delay is set to    
+0.5s 
+{ 
+} 
+Delay=500000; 
+if(GpioDataRegs.GPADAT.bit.GPIO17==1)    //If Push Button 2 is pressed, delay is set to    
+0.1s 
+{ 
+} 
+Delay=100000; 
+if(GpioDataRegs.GPADAT.bit.GPIO19==1) //If Push Button 3 is pressed, delay is set to    
+1s 
+{ 
+} 
+Delay=1000000; 
+DELAY_US(Delay); 
+Seconds++;            
+//Increments seconds 
+GpioDataRegs.GPBTOGGLE.bit.GPIO41 = 1;    //Toggle GPIO41 
+GpioDataRegs.GPBTOGGLE.bit.GPIO42 = 1;    //Toggle GPIO42 
+if (Seconds >= 60)           
+{ 
+} 
+} 
+} 
